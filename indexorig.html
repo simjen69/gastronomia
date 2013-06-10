@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=deviceWidth; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;"/>
+<title>Gastronomia Malaga</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="css/styles.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="js/jquery.mobile-1.0a2.min.css" />
+<script src="js/jquery-1.4.4.min.js"></script>
+<script src="js/jquery.mobile-1.0a2.min.js"></script>
+<script src="js/phonegap.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+
+
+<script>
+$(function () {	
+	var map = null;
+	var destMarker = null;
+	var lat = 36.71964;
+	var lng = -4.420023;
+	var latlng;
+	var cPosition = navigator.geolocation.getCurrentPosition(geoSuccess, geoFail, {timeout:3000, enableHighAccuracy:true});
+
+	
+	
+	
+	function geoSuccess (pos) {
+		lat = pos.coords.latitude;
+		lng = pos.coords.longitude;
+		latlng = new google.maps.LatLng(lat,lng);
+	}
+	
+	
+	
+	
+	function geoFail () { 
+		latlng = new google.maps.LatLng(lat,lng); // Default location is Malaga
+		$('.errorMsg').css('display', 'block');
+		$('#gMap').css('background-image', 'url(img/fakeMap.jpg)');
+	}
+			
+	function makeMap () {
+		if (map == null) {
+			latlng = new google.maps.LatLng(lat,lng);	
+			var options = { zoom: 16, center: latlng, disableDefaultUI: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+			map = new google.maps.Map(document.getElementById('gMap'), options);	
+			uRHere = new google.maps.Marker({ position: latlng, map: map, title: 'You are here' });
+		}
+	}
+		
+	$('.mapIt').click(function () {		
+		makeMap();
+		var dest = null;
+		var category = $(this).closest('div[data-role="page"][id]').attr('id');
+		var restName = $(this).parent('div').siblings('h2').text();
+		switch (category) {
+			case 'central':
+				dest = new google.maps.LatLng(36.7211363, -4.4218040);
+				break;
+			case 'libros':
+				dest = new google.maps.LatLng(36.7235657, -4.4170511);
+				break;
+			case 'viajero':
+				dest = new google.maps.LatLng(36.7220397, -4.4172463);
+				break;
+			case 'guardia':
+				dest = new google.maps.LatLng(36.7177233, -4.4233979);
+				break;
+			case 'azahar':
+				dest = new google.maps.LatLng(36.7214058, -4.4243206);
+				break;
+			case 'cervantes':
+				dest = new google.maps.LatLng(36.7239570, -4.4192934);
+				break;
+			case 'yamal':
+				dest = new google.maps.LatLng(36.7158377, -4.4223457);
+				break;
+			case 'alea':
+				dest = new google.maps.LatLng(36.7208439, -4.4241536);
+				break;
+			case 'asako':
+				dest = new google.maps.LatLng(36.7242963, -4.4208069);
+				break;
+			case 'calafate':
+				dest = new google.maps.LatLng(36.7226947, -4.4227442);
+				break;
+			case 'canadu':
+				dest = new google.maps.LatLng(36.7222112, -4.4191110);
+				break;
+			case 'vincente':
+				dest = new google.maps.LatLng(36.7184050, -4.4222096);
+				break;
+			case 'chinitas':
+				dest = new google.maps.LatLng(36.7204053, -4.4212675);
+				break;
+			case 'comepizza':
+				dest = new google.maps.LatLng(36.7214287, -4.4215894);
+				break;
+			case 'laboratorio':
+				dest = new google.maps.LatLng(36.7242429, -4.4210981);
+				break;
+		case 'opera':
+				dest = new google.maps.LatLng(36.7213550, -4.4232259);
+				break;
+	case 'bruselas':
+				dest = new google.maps.LatLng(36.7238321, -4.4175057);
+				break;		
+						case 'freskito':
+				dest = new google.maps.LatLng(36.7220044, -4.4180428);
+				break;
+						case 'vinos':
+				dest = new google.maps.LatLng(36.7203750, -4.4237183);
+				break;
+						case 'quitapenas':
+				dest = new google.maps.LatLng(36.7209663, -4.4216187);
+				break;
+						case 'cataa':
+				dest = new google.maps.LatLng(36.7239440, -4.4181209);
+				break;
+						case 'jardin':
+				dest = new google.maps.LatLng(36.7205687, -4.4186711);
+				break;
+						case 'gaudi':
+				dest = new google.maps.LatLng(36.7165534, -4.4214796);
+				break;
+						case 'omammamia1':
+				dest = new google.maps.LatLng(36.7239522, -4.4182055);
+				break;
+				case 'omammamia2':
+				dest = new google.maps.LatLng(36.7213212, -4.4059646);
+				break;
+				case 'omammamia3':
+				dest = new google.maps.LatLng(36.7159419, -4.4139719);
+				break;
+				case 'souvi':
+				dest = new google.maps.LatLng(36.7203365, -4.4182312);
+				break;
+				case 'gastroteca':
+				dest = new google.maps.LatLng(36.7178849, -4.4111258);
+				break;
+				case 'gallega':
+				dest = new google.maps.LatLng(36.7213390, -4.4203220);
+				break;
+				case 'gueno':
+				dest = new google.maps.LatLng(36.7192222, -4.4220276);
+				break;
+				case 'gueno2':
+				dest = new google.maps.LatLng(36.7196592, -4.4203906);
+				break;
+				case 'alegria':
+				dest = new google.maps.LatLng(36.7190068, -4.4222840);
+				break;
+				case 'perro':
+				dest = new google.maps.LatLng(36.7228531, -4.4229517);
+				break;
+				case 'antonio':
+				dest = new google.maps.LatLng(36.7206260, -4.4229316);
+				break;
+				case 'osteria':
+				dest = new google.maps.LatLng(36.7245972, -4.4200618);
+				break;
+				case 'gustar':
+				dest = new google.maps.LatLng(36.7159419, -4.4139719);
+				break;
+				case 'ute':
+				dest = new google.maps.LatLng(36.7198979, -4.4186389);
+				break;
+				case 'flamenco':
+				dest = new google.maps.LatLng(36.7245417, -4.4189501);
+				break;
+				case 'jalisco':
+				dest = new google.maps.LatLng(36.7175546, -4.4112318);
+				break;
+				case 'lorenzo':
+				dest = new google.maps.LatLng(36.7229895, -4.4180167);
+				break;
+				case 'tapadaki':
+				dest = new google.maps.LatLng(36.7237313, -4.4226976);
+				break;
+				case 'piedra':
+				dest = new google.maps.LatLng(36.7242493, -4.4206452);
+				break;
+				case 'vinomio':
+				dest = new google.maps.LatLng(36.7245417, -4.4189501);
+				break;
+			
+					case 'dapis':
+				dest = new google.maps.LatLng(36.7209191, -4.4239319);
+				break;
+					case 'dapis2':
+				dest = new google.maps.LatLng(36.71977, -4.4212087);
+				break;
+					case 'kelipe':
+				dest = new google.maps.LatLng(36.724054, -4.419973);
+				break;
+				case 'okami':
+				dest = new google.maps.LatLng(36.7241307, -4.4183944);
+				break;
+					case 'fabrica':
+				dest = new google.maps.LatLng(36.7238002, -4.4174881);
+				break;
+				case 'eljamal':
+				dest = new google.maps.LatLng(36.7240350, -4.4201040);
+				break;
+				case 'lechuga':
+				dest = new google.maps.LatLng(36.7228690, -4.4176730);
+				break;
+				case 'bodega':
+				dest = new google.maps.LatLng(36.7193730, -4.4203090);
+				break;
+				case 'peggysue':
+				dest = new google.maps.LatLng(36.7210626, -4.4202245);
+				break;
+				case 'paristokio':
+				dest = new google.maps.LatLng(36.7201480, -4.4186820);
+				break;
+				case 'haren':
+				dest = new google.maps.LatLng(36.7226169, -4.4227096);
+				break;
+				case 'zouk':
+				dest = new google.maps.LatLng(36.7210159, -4.4249690);
+				break;
+				case 'mesoncervantes':
+				dest = new google.maps.LatLng(36.7240220, -4.4199020);
+				break;
+						
+		}
+		if (destMarker == null) {
+			destMarker = new google.maps.Marker({ position: dest, map: map, icon: 'img/fork.png', title: restName }); 
+		} else {
+			destMarker.setPosition(dest);
+			destMarker.setTitle(restName);
+		}
+		$('#map h1').text(restName);
+	});
+	
+	$('body > *').css({minHeight: window.innerHeight + 'px !important'});
+	
+	document.addEventListener('deviceready', doDeviceReady, false);
+	
+	function doDeviceReady () {
+		// The following tells the app to fade #page1 in after the splash screen
+		$('#page1').fadeIn(5000);
+	}
+});
+</script>
+
+</head>
+<body>
+<div data-role="page" id="page1" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Gastronomia Malaga</h1>
+  </div>
+  <div data-role="content">
+    <div class="logo"><img src="img/logo.png"></div>
+    <p>Encuentra tu restaurante....</p>
+      <p>Find your restaurant...</p><br>
+    <ul data-role="listview" data-inset="true">
+      <li><a href="#Cafes">Cafes</a></li>
+       <li><a href="#Tapas">Tapas</a> </li>
+        <li><a href="#restaurantes">Restaurantes</a> </li>
+      
+    </ul><br>
+     
+  </div>
+  
+  </div>
+  
+</div>
+
+
+
+
+
+
+<div data-role="page" id="Cafes" data-theme="a">
+
+  <div data-role="header" data-position="fixed">
+    <h1>Cafes</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr">
+      <ul data-role="listview" data-inset="true">
+          <li><a href="#bruselas">Bistro Bar Bruselas</a> </li>
+      <li><a href="#central">Cafe Central</a></li>
+      <li><a href="#libros">Cafe con Libros</a> </li>
+        <li><a href="#viajero">Cafe del Viajero</a> </li>
+         <li><a href="#haren">El Haren</a> </li>
+        <li><a href="#eljamal">El Jamal</a></li>
+              <li><a href="#freskito">Freskito</a> </li>
+    			<li><a href="#zouk">Zouk</a> </li>
+   
+  
+    
+      </ul>
+    </div><br>
+    <img src="img/cafe.png" class="thumbnail" width="30%">
+    <p>En Málaga encontrarás cafés modernos e internacionales, teterías de inspiración árabe y muchos más establecimientos de estilo clásico, que ofrecen deliciosos postres, situados en fabulosos edificios históricos. También podrás probar un desayuno tradicional en las populares ‘churrerías’ – establecimientos de venta de churros con chocolate caliente o café con leche.</p><br><br>
+      <p>In Málaga you will find new trendy cafés, Arab-inspired tea shops, but you will find many more classical style establishments set in some fabulous historic building offering mouthwatering patisseries. A traditional breakfast can be found at “churrerias” – shops selling churros to dip in hot chocolate or café con leche.</p><br>
+  </div>
+  
+   <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+
+
+
+
+
+
+<div data-role="page" id="Tapas" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Tapas</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr">
+      <ul data-role="listview" data-inset="true">
+      <li><a href="#guardia">Antigua Casa Guardia</a></li>
+      <li><a href="#azahar">Azahar</a> </li>
+       <li><a href="#quitapenas">Bodegas Quitapenas</a> </li>
+           <li><a href="#bodega">d'gustar bodega</a> </li>
+    	
+         <li><a href="#vinos">d'gustar vinos</a> </li>
+         <li><a href="#cervantes">Tapeo Cervantes</a> </li>
+          <li><a href="#kelipe">Kelipe</a> </li>
+      </ul>
+    </div><br>
+    <img src="img/tapas.png" class="thumbnail" width="30%">
+    <p>Una forma diferente de saborear la gran variedad de platos y especialidades que hallarás en Málaga es el tapeo. Comidas variadas y ligeras a base de pequeñas raciones para acompañar con un buen vino, un refresco o una caña bien fría. Todo un clásico en la ciudad para probar y disfrutar el sabor de Málaga.</p><br><br>
+      <p>A great way to enjoy the great variety of dishes and specialties of Malaga is to taste the tapas available in many bars. Small portions of many different foods to accompany a good wine, soda or cold beer. A classic in Malaga and an experience not to be missed.</p><br>
+  </div>
+  
+   <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+
+
+
+
+
+<div data-role="page" id="restaurantes" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Restaurants</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr">
+            <ul data-role="listview" data-inset="true">
+      
+      <li><a href="#alea">Alea Restaurante</a> </li>
+      <li><a href="#yamal">Al Yamal</a></li>
+       <li><a href="#asako">Asako</a> </li>
+        <li><a href="#calafate">Calafate</a> </li>
+         <li><a href="#canadu">Canadu</a> </li>
+          
+          <li><a href="#perro">Casa del Perro</a> </li>
+          
+           <li><a href="#chinitas">Chinitas</a> </li>
+            <li><a href="#comepizza">Comepizza</a> </li>
+           
+              <li><a href="#canadu">Cañadú</a> </li>
+              <li><a href="#dapis">Dapis Tentorium</a> </li>
+           <li><a href="#dapis2">Dapis Tentorium</a> </li>
+               <li><a href="#gustar">d'gustar</a> </li>
+               <li><a href="#fabrica">La Fabrica de los Sentidos</a> </li>
+               
+                     <li><a href="#laboratorio">Il Laboratorio</a> </li>
+                       <li><a href="#kelipe">Kelipe</a> </li>
+                     <li><a href="#gallega">La Taberna Gallega</a> </li>
+                       <li><a href="#lechuga">Lechuga</a> </li>
+                               <li><a href="#gueno1">Lo Güeno</a> </li>
+                                 <li><a href="#gueno2">Lo Güeno Strachan</a> </li>
+                      <li><a href="#lorenzo">Lorenzo Trattoria</a> </li>
+                      <li><a href="#alegria">Meson la Alegria</a> </li>
+                      <li><a href="#antonio">Meson Antonio</a> </li>
+                <li><a href="#okami">Okami</a> </li>
+                        <li><a href="#paristokio">Paristokio</a> </li>
+                        <li><a href="#osteria">Osteria Angelinos</a> </li>
+                        <li><a href="#peggysue">Peggy Sue's</a> </li>
+                         <li><a href="#souvi">Souvi</a> </li>
+                           <li><a href="#tapadaki">Tapadaki</a> </li>
+                    
+                                           
+                                               <li><a href="#vinomio">Vino Mio </a> </li>
+                                              
+          
+          
+         </ul>
+    </div><br>
+    <img src="img/rest.png" class="thumbnail" width="30%">
+    <p>Málaga es un paraíso para el amante de la comida. La muestra de que los malagueños son unos apasionados por la gastronomía se deja ver en el gran número y variedad de restaurantes que se encuentran en la ciudad. Mientras usted busca un restaurante tradicional o de cocina internacional, esta guía pretende listar los mejores lugares que ofrece la ciudad. Explore y disfrute!</p><br><br>
+      <p>Malaga is a food lover’s haven. The fact that the Malagueños are food devotees is proven by the sheer number and variety of restaurants found in the city. 
+Wether you are looking for a traditional restaurant or international cuisine, this guide aims to list the best the city has to offer. 
+Explore and enjoy!</p><br>
+  </div>
+  
+   <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+
+<div data-role="page" id="paristokio" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Paristokio</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/paristokio.png" class="thumbnail" width="30%">
+      <h2>Paristokio</h2>
+      <p>Calle Cañon 7<span class="details"><a href="http://www.gastronomiamalaga.com/index.php?option=com_content&view=article&id=269%3Aparis-tokio-restaurante-malaga&catid=34%3Arestaurants&Itemid=76&lang=es" target="_blank">http://www.gastronomiamalaga.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34951501684" data-role="button" data-inline="false">Call</a></div>
+    </div>  <p>Sushi & Tapas</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+
+
+<div data-role="page" id="peggysue" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Peggy Sue's</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/peggysue.png" class="thumbnail" width="30%">
+      <h2>Peggy Sue's</h2>
+      <p>C/ Molina Lario, nº4<span class="details"><a href="http://www.peggysues.es" target="_blank">http://www.peggysues.es</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34951709081" data-role="button" data-inline="false">Call</a></div>
+    </div>  <p>Cuando contamos que hacemos la comida a mano diariamente, muchas veces la gente no nos cree. Es posible hacer las cosas como antes, una a una, con los mejores ingredientes y sin cobrar precios desorbitados. Sólo hacen faltan muchas horas de trabajo, dedicación y cariño hacia lo que hacemos.</p>
+    <br>
+    <p>When we tell people that we freshly prepare our food every day, many people do not believe us. You can prepare meals as they did in the past, using the finest and freshes ingredients for a reaasonable price.  All you need is hard work, dedication and a love for what you do.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+
+
+<div data-role="page" id="bodega" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>d'gustar bodega</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/dgustar.png" class="thumbnail" width="30%">
+      <h2>d'gustar bodega</h2>
+      <p>Calle de la Bolsa, 11<span class="details"><a href="http://www.degustar.co" target="_blank">http://www.degustar.co</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952222625" data-role="button" data-inline="false">Call</a></div>
+    </div>  <p>Tu nueva bodega en Málaga!</p><br>
+    <p>Your new Wine Cellar in the centre of Málaga!</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+
+
+
+
+
+<div data-role="page" id="lechuga" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Restaurante Lechuga</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/lechuga.png" class="thumbnail" width="30%">
+      <h2>Restaurante Lechuga</h2>
+      <p>Plaza de la Meced, 1<span class="details"><a href="http://www.restaurantelechuga.com" target="_blank">http://www.restaurantelechuga.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34610391494" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Salads &amp; Tapas</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+
+
+
+
+
+<div data-role="page" id="central" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Cafe Central</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/central.png" class="thumbnail" width="30%">
+      <h2>Cafe Central</h2>
+      <p>Plaza de la Constitución<span class="details"><a href="http://www.cafecentralmalaga.com" target="_blank">http://www.cafecentralmalaga.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952224972" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Con vistas sobre la espectacular Plaza de la Constitución, al final de la Calle Larios, Café Central sirve desayunos, aperitivos al mediodía o cócteles por la tarde en una terraza con un ubicación inmejorable.</p>
+    <p>El lugar idóneo para contemplar el mundo.........</p>
+    <br>
+    <p>Overlooking the spectacular Plaza de la Constitución and on Málaga’s main shopping street, the Calle Larios, Café Central serves breakfasts, midday aperitifs or evening cocktails at its prime location terrace.</p>
+    <p>The perfect place to watch the world go by..........</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+
+
+
+
+
+<div data-role="page" id="libros" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Cafe con Libros</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/libros.png" class="thumbnail" width="30%">
+      <h2>Cafe con Libros</h2>
+      <p>Plaza de la Merced, 19<span class="details"><a href="http://cafeconlibrosmalaga.com/" target="_blank">http://cafeconlibrosmalaga.com/</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952215189" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>En Café con Libros, además de las especialidades de la casa (zumos naturales y una amplia selección de tés y cafés), también puedes disfrutar de sus sabrosos desayunos, almuerzos, meriendas o cenas ligeras, todo servido en un entorno relajado.  Los colores cálidos y la suave música de fondo se aprecian en las numerosas salas, cuyas estanterías repletas de libros y revistas invitan a la lectura o la contemplación.</p>
+    <br>
+    <p>In Café con Libros, in addition to the house specialities (fresh fruit juices and a wide selection of teas and coffees), you can also enjoy a delicious breakfast, lunch, afternoon tea or light dinner, served in a relaxing atmosphere.  The warm colours and gentle background music are present throughout its rooms, with book and magazine laden shelves that offer reading or just browsing.</p>
+    <p>In Café con Libros, in addition to the house specialities (fresh fruit juices and a wide selection of teas and coffees), you can also enjoy a delicious breakfast, lunch, afternoon tea or light dinner, served in a relaxing atmosphere.  The warm colours and gentle background music are present throughout its rooms, with book and magazine laden shelves that offer reading or just browsing.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+
+
+
+
+<div data-role="page" id="viajero" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Cafe del Viajero</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/viajero.png" class="thumbnail" width="30%">
+      <h2>Cafe del Viajero</h2>
+      <p>Calle Santiago 8<span class="details"><a href="http://www.cafedelviajero.es" target="_blank">http://www.cafedelviajero.es</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Situado en pleno centro histórico de Málaga el CAFÉ DEL VIAJERO ocupa los bajos de una antigua casona rehabilitada. Un acogedor espacio, rodeado de mapas, postales de todo el mundo, revistas de viajes, y exposiciones periódicas, donde podrás disfrutar de una amplia y variada carta. Cafés, tés, chocolates, zumos y batidos, cervezas, cócteles, copas, crepes dulces y salados, sándwiches, ensaladas, tartas, gofres o repostería árabe con una amplia variedad de sugerencias. Tenemos terraza y zona wifi.</p>
+    <br>
+   Located in the historic centre of Malaga, Café del Viajero occupies the ground floor of a large old renovated house.
+
+In an inviting atmosphere, surrounded by maps, postcards from around the world, travel magazines, and regular exhibitions, you can enjoy a varied menu: coffees, teas, chocolates, juices and smoothies, beers, cocktails, drinks and sweet and savory crêpes, sandwiches, salads, pies, waffles, Arab pastries and daily suggestions.  There is a terrace and wifi internet.
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+
+
+<div data-role="page" id="guardia" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Antigua Casa Guardia</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/guardia.png" class="thumbnail" width="30%">
+      <h2>Antigua Casa Guardia</h2>
+      <p>Alameda Principal 18<span class="details"><a href="http://www.antiguacasadeguardia.net/" target="_blank">http://www.antiguacasadeguardia.net/</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952214680" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>"El lugar perfecto para una copa y un aperitivo" "Vinos de los Montes de Málaga y marisco fresco" "Vino Malagueño para llevar a casa"</p>
+    <br>
+    <p>“Great place for a drink and appetizers, at any time of the day”
+“Wines from the Montes de Málaga and authentic tapas”
+
+“Unique local wine to take home”</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+
+
+
+
+<div data-role="page" id="azahar" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Azahar</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/azahar.png" class="thumbnail" width="30%">
+      <h2>Azahar</h2>
+      <p>C/ Compañía, 36 Málaga<span class="details"><a href="http://www.gastronomiamalaga.com/index.php?option=com_content&view=article&catid=34%3Arestaurants&id=49%3Aazahar-mas-que-tapas&Itemid=76&lang=en" target="_blank">http://www.azahar.com/</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Un lugar que recuerda a las bodegas tradicionales y unos toques de modernidad se mezclan en Azahar. Una fusión de tradición y actualidad donde disfrutar del picoteo típico mediterráneo como el jamón o el queso.
+Tapas para todos los gustos y sugerencias diarias de las que disfrutar en un ambiente tranquilo y acogedor.
+
+</p>
+    <br>
+    <p>“Azahar is reminiscent of traditional bodegas with a slightly modern touch,
+
+where you may enjoy typical Mediterranean tapas, such as ham or cheese.
+Daily suggestions and tapas to suit all tastes are offered in a tranquil, welcoming space.
+
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+<div data-role="page" id="cervantes" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Tapeo Cervantes</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/tapeo.png" class="thumbnail" width="30%">
+      <h2>Tapeo Cervantes</h2>
+      <p>Calle Carcer, 8<span class="details"><a href="http://www.eltapeodecervantes.com" target="_blank">http://www.eltapeodecervantes.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952609458" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>El Tapeo de Cervantes es una parada obligatoria para aquellos fanáticos del “buen comer”.
+
+No sólo tapas tradicionales, también tapas creativas y “de autor”,  harán disfrutar al comensal de una verdadera experiencia gastronómica. Además, amplia y cuidada selección de vinos y cervezas, todo en un ambiente cálido y cordial.
+
+
+</p>
+    <br>
+    <p>The Tapeo Cervantes is a must for lovers of “great food".
+
+We serve not only traditional tapas, but also new, creative tapas, unique to us, so that you may enjoy a truly unequalled gastronomic experience. To accompany your meal, we have an extensive, carefully selected range of wines and beers, all served in a warm and welcoming environment.
+
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<div data-role="page" id="yamal" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Al Yamal</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/yamal.png" class="thumbnail" width="30%">
+      <h2>Al Yamal</h2>
+      <p>Blasco de Garay, 7, Malaga<span class="details"><a href="http://www.restaurantearabeal-yamal.net" target="_blank">http://www.restaurantearabeal-yamal.net</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952212046" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Cuisine Arabe
+</p>
+    <br>
+    <p>Arabic Kitchen
+
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="alea" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Restaurante Alea</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/alea.png" class="thumbnail" width="30%">
+      <h2>Restaurante Alea</h2>
+      <p>Calle Fajardo 11<span class="details"><a href="http://www.restaurantealea.com" target="_blank">http://www.restaurantealea.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952218639" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Alea es un referente de la gastronomía en Málaga. Se encuentra en la Calle Fajardo, a menos de 100 metros del Museo Thyssen y en la zona peatonal de la ciudad.
+El edificio y decorado interior combinan la tradición con la modernidad, una construcción de hace casi 300 años actualmente reinterpretado con espacios elegantes, amplios y luminosos de inspiración vanguardista.  Además de una zona para comidas y cenas formales, también goza de una “tapería”, donde probar sus variados pinchos, tapas y raciones.
+</p>
+    <br>
+    <p>Alea is a reference point for gastronomy in Malaga.  It is located on Calle Fajardo, less than 100 metres from the Thyssen Museum and in the pedestrian area of the City.<br>The building and its décor combine tradition with modernity, with almost 300 years of history but refurbished with elegant, spacious and naturally lit dining areas, vanguardist in style. In addition to the area reserved for formal lunches and dinners, there is also a “tapería”, for trying Spain’s famous unique small portions (tapas), skewers and “raciones” (larger portions for sharing).
+
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="asako" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Restaurante Asako</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/asako.png" class="thumbnail" width="30%">
+      <h2>Restaurante Asako</h2>
+      <p>Calle Fajardo 11<span class="details"><a href="http://www.restauranteasako.com" target="_blank">http://www.restauranteasako.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952214060" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Todo ello representado por dos tipos de cocina: Una en la que se realizan los platos clásicos mediterráneos con algunos ingredientes orientales o viceversa, cuyo resultado son recetas sorprendentes e innovadoras que proponen una carta amplia y diferente, tales como la ensalada de espinacas y papaya con pato a las cinco especias, el tataki de atún con salsa de mostaza antigua, el wok de secreto ibérico con arroz frito japonés, o el salmón al teriyaki con setas escabechadas, arroz al lemongrass y crudité de verduras. Y otra basada en el sushi, con más de 30 variedades de nigiris, makis, uramakis y sashimis, tanto clásicos como de creación propia. Podrás degustar auténtico atún rojo del mediterráneo, salmón noruego o pescado blanco de la bahía de Málaga, junto a los rollos de alga rellenos de cangrejo y aguacate cubierto de ventresca de atún y foié flambeado, aderezado con reducción de Pedro Ximénez o los que están rellenos de langostinos y queso cremoso y cubiertos de pescados varios y aguacate, en definitiva delicias que no te dejarán indiferente, y que si te apetece te puedes llevar a casa. Asako propone un juego de sabores con una cocina creativa, sana e interesante, donde el servicio y el trato directo marcan la diferencia. La originalidad de sus generosos platos se complementa a la perfección con el ambiente del lugar: acogedor, íntimo y moderno creando así una atmósfera chill out en la que disfrutar de su comida.
+</p>
+    <br>
+    <p>Jesus, Joaquin and Jose, in love with Asia and its food, offer you a new concept of fusion cuisine.
+
+Jesus, Joaquin and Jose, in love with Asia and its food, offer you a new concept of fusion cuisine. The rich variety of Mediterranean and Asian food are united in this contemporary restaurant. Asako comprises of two kitchens: One in which traditional mediterranean dishes are prepared with an oriental twist or vice versa. The result, delightfully innovative recipes that deliver a wide and varied menu, for instance, spinach and papaya salad with five spiced duck, tataki tuna with traditional mustard sauce, wok of Ibearian pork and Japanese fried rice, teriyaki salmon with marinated mushrooms, lemongrass rice with crudité vegetables. The other based on sushi, more than 30 varieties of nigiris, Makis, uramakis and sashimi, authentic recipes and our own. You can enjoy authentic Mediterranean tuna, Norwegian salmon or whitefish from the bay of Malaga, complimented by seaweed rolls stuffed with crab and avocado covered with tuna and foié flambé, drizzled with a Pedro Ximenez reduction or shrimp and cream cheese rolls covered with fish and avocado. Exquisitely prepared dishes, that never fail to please, also available to take away. Asako present a burst of flavors, a creative cuisine focusing on healthy eating. Service and attention to detail are second to none. The originality of its delicate dishes are complemented perfectly by the ambience, contemporary, modern and elegant. A ‘chill out’ atmosphere to enjoy your meal.
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+<div data-role="page" id="calafate" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Calafate</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/calafate.png" class="thumbnail" width="30%">
+      <h2>Calafate</h2>
+      <p>Calle Andrés Pérez 6<span class="details"><a href="http://www.gastronomiamalaga.com/index.php?option=com_content&view=article&catid=34:restaurants&id=239:calafate&Itemid=76&lang=es" target="_blank">http://www.calafate.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952229344" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Restaurante vegetariano en Málaga. Menú casero preparado diariamente con ingredientes frescos sanos
+</p>
+    <br>
+    <p>Vegetarian restaurant in Málaga. Homemade menu prepared daily with fresh wholesome ingredients
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+<div data-role="page" id="canadu" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Canadu</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/canadu.png" class="thumbnail" width="30%">
+      <h2>Canadu</h2>
+      <p>Calle Andrés Pérez 6<span class="details"><a href="http://www.canadu.es/" target="_blank">http://www.canadu.es/</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952602719" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Doce años de experiencia avalan a este restaurante que ofrece los mejores platos vegetarianos de la cocina mediterránea. Una cocina creativa, tradicional pero sobre todo sana.
+ Platos ecológicos, ricos y sabrosos componen su carta donde encontrarás ensaladas, sopas calientes, ajoblanco, cous cous, callos vegetarianos, deliciosas croquetas de manzana y piñones, amplio surtido de pastas, arroces, zumos naturales, tés, infusiones, postres caseros como el tiramisú… Y un menú diario sano y económico.
+
+ Para vegetarianos, para los que no lo sean, para veganos, celíacos, todos encontrarán un plato a su medida, ya que si algo caracteriza a este restaurante es su variedad. Además, de jueves a sábados, Cañadú ofrece durante la velada música de piano en vivo con temas de bandas sonoras, clásica, pop...
+
+ No dudes en visitar Cañadú y descubre la riqueza de la huerta ecológica malagueña.
+
+
+</p>
+    <br>
+    <p>Twelve years of experience guarantee that this restaurant offers the best vegetarian dishes using Mediterranean produce. A creative cuisine, traditional and above all healthy.
+You will find rich and tasty organic dishes on the menu, such as salads, hot soups, cold garlic soup, cous cous, delicious apple and pine nut fritters, a wide selection of pastas, rice, juices, teas, herbal teas and homemade desserts such as tiramisu ... And a reasonably priced daily lunch menu.
+
+For vegetarians, and even those who are not, for vegans and celiacs, everyone will find a plate to please at Cañadú on their wide and varied menu.
+
+In addition, from Thursday to Saturday, enjoy evenings of live piano music, classical, pop ...
+
+Visit and discover the richness of Málagas ecological garden.
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+<div data-role="page" id="dapis" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Dapis Tentorium</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/dapis.png" class="thumbnail" width="30%">
+      <h2>Dapis Tentorium</h2>
+      <p>Calle Horno, 10 <span class="details"><a href="http://www.gastronomiamalaga.com/index.php?option=com_content&view=article&catid=34%3Arestaurants&id=265%3Adapis-tentorium&Itemid=76&lang=es" target="_blank">http://www.restaurantealea.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952218939" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Creative tapas in a unique atmosphere
+
+</p>
+    <br>
+    <p>Tapear en el ambienté más especiál
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+<div data-role="page" id="dapis2" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Dapis Tentorium</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/dapis.png" class="thumbnail" width="30%">
+      <h2>Dapis Tentorium</h2>
+      <p>Calle Strachan 4,<span class="details"><a href="http://www.gastronomiamalaga.com/index.php?option=com_content&view=article&catid=34%3Arestaurants&id=265%3Adapis-tentorium&Itemid=76&lang=es" target="_blank">http://www.restaurantealea.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952218939" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Creative tapas in a unique atmosphere
+
+</p>
+    <br>
+    <p>Tapear en el ambienté más especiál
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="chinitas" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Chinitas</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/chinitas.png" class="thumbnail" width="30%">
+      <h2>Chinitas</h2>
+      <p>Calle Moreno Monroy 4<span class="details"><a href="http://www.elchinitas.com" target="_blank">http://www.elchinitas.com/</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952210972" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Ubicado en dos edificios del siglo XIX rehabilitados en el centro histórico de la ciudad, en la calle Moreno Monroy 4 y 6 el restaurante “El Chinitas” está cercano al Museo Picasso, a la catedral y a la calle Larios. Su fachada típica malagueña alberga una colección de mosaicos de la artista Amparo Ruiz de Luna en la que refleja fechas conmemorativas así como los personajes típicos “Cenachero” y “Biznaguero, la poesía de García Lorca, la Patrona y los patrones de la ciudad. Dispone de una terraza ricamente iluminada que por nuestro clima es frecuentada casi la totalidad del año.
+ En el interior, los artesonados de madera de la época, los mosaicos en sus zócalos y retratos de artistas de la ciudad y una colección de pinturas propia de cualquier museo lo convierte en un lugar malagueño por excelencia.
+ Venir al Restaurante “El Chinitas” es mucho más que disfrutar de una buena comida. Es reencontrarse con la historia. Su nombre es recuperado del famoso café-teatro “El Chinitas” de la Málaga del siglo XIX y que frecuentaban artistas, toreros, literarios y poetas y entre otros Federico García Lorca.
+ El “Libro de Oro” fue inaugurado por el premio Nóbel de Medicina, Dr. Severo Ochoa en 1989. Figuran además, entre otros, el torero Antonio Ordóñez, el presidente del gobierno José Maria Aznar así como el presidente de la Junta de Andalucía Manuel Chávez, Christine Ruiz Picasso y un largo etcétera
+ Su gastronomía se basa principalmente en los productos de la tierra y en la dieta mediterránea, pescados de la bahía, mariscos (vivero de langostas y bogavantes), la buena carne, el jamón y la caña de lomo ibérico de bellota así como platos típicos de nuestra tierra: sopa Viña AB, tortillitas de camarones, arroz caldoso con bogavante, fritura malagueña… Su carta amplia e imaginativa ofrece, además, la posibilidad de elaborar cualquier plato típico que nos sugiera el cliente, y servirlo en este marco tan acogedor y típico de nuestra ciudad.
+ Su distribución está compuesta por planta baja donde encontramos la barra con las mejores tapas, así como un amplio salón principal con capacidad para 56 comensales. La primera y segunda plantas cuentan con varios comedores de distinta capacidad.
+ Restaurante El Chinitas les ofrece todo tipo de celebraciones, amplia bodega de vinos, salones privados, terraza de verano, local climatizado, actuación flamenca (a petición del cliente)
+ Hemos sido galardonados con diversos premios y reconocimientos, PERO LO MEJOR DE LA CASA ES EL CLIENTE
+</p>
+    <br>
+    <p>A visit to El Chinitas is much more than the enjoyment of a great meal. It is an encounter with history. Occupying two carefully restored 19th century houses at 4-6 Moreno Monroy street, in the centre of the old quarter of the city, the restaurant is close to the Picasso Museum, the cathedral and Larios street. It is even named after the famous 19th century dinner-theatre in Malaga, frequented by artists, writers and poets, including 
+Federico Garcia Lorca. A collection of mosaics by Amparo Ruiz de Luna representing important events and emblematic local figures decorate the front of the building. These symbols encompass the “Biznaguero” or jasmine posy seller, the “Cenachero” or fish peddler, and the patron 
+Virgin and saints of the city. Thanks to our excellent climate, guests can use the terrace almost every day of the year.
+Inside, the carved wooden ceilings, the ceramic mosaic skirting, paintings and portraits by local artists and an art collection worthy of any museum makes this the absolute place to eat in Malaga.
+The Nobel Prize winner for Medicine, Dr. Severo Ochoa, was the first to sign the “golden” visitors’ book in 1989. Other personalities include Antonio Ordóñez, the bullfighter, José María Aznar and Manuel Chávez, 
+Presidents of the Spanish government and the Andalusian Regional Government respectively, Christine Ruiz Picasso and many more.
+El Chinitas’ particular cuisine is based mainly on local produce and the Mediterranean diet with 
+special emphasis on locally caught fish and shellfish (live 
+lobsters), excellent meat, premium Iberian cured ham and pork sausage and regional dishes. Choose between the delicious  fish soup or crispy shrimp fritters, or lobster and rice chowder, or the famous Malaga mixed fried fish.  All these culinary delights and wines from our well-stocked cellar are served in the typically welcoming atmosphere of our city.  Try out the best tapas in the ground floor bar before moving on to one of several dining rooms on the first and second floors. There are large and small rooms for private events that can include flamenco 
+performances if requested, a summer terrace and air-conditioning. 
+El Chinitas has won prestigious hospitality 
+industry awards and is a founder member of the Culinary and Gastronomy Association of Andalusia, but for us, our finest award is our clientele.
+ 
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="comepizza" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Comepizza</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/come.png" class="thumbnail" width="30%">
+      <h2>Comepizza</h2>
+      <p>Calle Granada, Malaga<span class="details"><a href="http://www.comepizza.net" target="_blank">http://www.comepizza.net</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952212982" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Este restaurante italiano se define como una empresa seria y respetuosa con los clientes, que se mantiene en continua evolución aunque respetando la misma línea que ha hecho de Comepizza lo que es hoy en día, tras 20 años de experiencia.
+
+
+
+Servicio en español, inglés, italiano, holandés, alemán.
+</p>
+    <br>
+    <p>This Italian restaurant is known for the quality of its food and the service given to its customers, by constantly evolving yet keeping the philosophy that has made Comepizza what it is today, with 20 years of experience.
+
+
+
+Service in English, Spanish, Italian, Dutch, German.
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+<div data-role="page" id="laboratorio" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>IlLaboratorio</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/lab.png" class="thumbnail" width="30%">
+      <h2>IlLaboratorio</h2>
+      <p>Calle Carreteria 92<span class="details"><a href="http://www.gastronomiamalaga.com/index.php?option=com_content&view=article&catid=34%3Arestaurants&id=88%3Ail-laboratorio&Itemid=76&lang=es" target="_blank">http://www.illaboratorio.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952224998" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Desde la mañana arrancan el dia con desayunos muy divertidos desde los más clasicos al bol de frutas y revueltos más originales.
+
+A partir del mediodia se pueden disfrutar de una amplia gama de tapas de inspiración italiana, de novedosas pizzas y platos típicos de Italia. Su terraza y su barra se presta maravillosamente a agradables tertulias degustando vinos a la copa (mas de 18 referencias) numerosas cervezas de barril y suculentos cócteles.
+</p>
+    <br>
+    <p>Start your day with one of our delicious breakfasts, a fruit bowl or impeccably prepared scrambled eggs.
+
+From midday our menu offers a wide range of Italian inspired tapas, pizzas and other traditional Italian cuisine. Our large terrace and bar areas are great places to hang out with friends, sample some of our many wines, served by the glass (18 in total), our large selection of beers or our fabulous cocktails.
+
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<div data-role="page" id="opera" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>L'Opera</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/opera.png" class="thumbnail" width="30%">
+      <h2>L'Opera</h2>
+      <p>Calle Compañía 15<span class="details"></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34951246593" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Croisanterie, bakery, cafetaria,cakes, macarons, quiches.</p>
+    <br>
+    <p>Croisanterie, bakery, cafetaria,cakes, macarons, quiches.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+<div data-role="page" id="bruselas" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Bistro Bar Bruselas</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/bruselas.png" class="thumbnail" width="30%">
+      <h2>Bistro Bar Bruselas</h2>
+      <p>Plaza de la Merced, 16<span class="details"><a href="http://www.calledebruselas.com" target="_blank">http://www.calledebruselas.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952603948" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Calle de Bruselas enclavado en uno de los lugares más emblemáticos de la ciudad, la Plaza de Merced, se ha convertido en un clásico en la provincia tras 14 años de existencia. Su gato negro es ya todo un referente de calidad y buen servicio. Un lugar peculiar, diferente y abierto donde todos seréis bienvenidos. Su terraza es perfecta para disfrutar de tus comidas mientras admiras la belleza de la ciudad, al igual que su interior cuya decoración modernista está inspirada en un auténtico bar de los años 20 de la capital belga. Farolas, carteles originales y pinturas de paisajes que simulan la popular calle de Bruselas, además de las exposiciones que periódicamente se exponen en sus paredes. Desde las 9:00 de la mañana hasta la madrugada, durante 363 días al año, esta cafetería te ofrece un tentempié para cualquier hora de la jornada. Por la mañana, prueba su desayuno especial. Mas entrado el día, degusta sus tapas frías y calientes, el menú diario o déjate llevar por las sugerencias diarias. Por la tarde, toma un café en compañía de alguno de sus gofres, crepes o tartas. Y al caer el sol, una cena ligera que podrás terminar con las primeras copas de la noche. Su carta contempla sabores internacionales diferentes como él mismo, sin perder la tradición malagueña. Y ahora que llega el invierno, Calle de Bruselas amplía su oferta para divertirte con la multitud de fiestas y eventos que aquí se organizan. Cuentacuentos, tardes de trivial, semana cultural o la noche mágica de Bruselas, son algunos de ellos. Un punto de encuentro para aquellos que buscan y valoran la tranquilidad, la originalidad y la buena conversación. Estos y otros aspectos hacen de Calle de Bruselas un lugar que atrae a personas de todas las culturas y lugares.</p>
+    <br>
+    <p>A peculiar place, different and open minded where all are welcome. The terrace is perfect for enjoying your meal while admiring the beauty of the city, its interior decoration is modernist inspired by a real bar of the 20’s in the Belgian capital.</p>
+    <p>Lamps, original posters and paintings of landscapes give us an insight into the art nouveau movement in Brussels, hung alongside exhibitions by local artists. From 9:00 am until dusk, during 363 days a year, this café offers a large range of snack. In the morning, try their breakfast special. Later in the day, snack on their hot and cold tapas, enjoy the lunch menu or daily specialities offered. In the afternoon, enjoy coffee and cakes, waffles or pancakes. And at sunset, you can enjoy a light dinner to savor with the first drinks of the evening. The menu offers international flavours , whilst still offering traditional Malaguenan cuisine. And now with winter approaching, Calle de Bruselas offer a multitude of festivals and events to enjoy. Storytelling, trivial quizzes, cultural week or magical night in Brussels, to mention a few. A meeting point for those seeking tranquility and culture, originality and good conversation. These and other aspects of Calle de Bruselas attract people from all cultures and places.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+<div data-role="page" id="freskito" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Freskito</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/freskito.png" class="thumbnail" width="30%">
+      <h2>Freskito</h2>
+      <p>Calle Granada 55<span class="details"><a href="http://www.gelateriafreskitto.com/" target="_blank">http://www.gelateriafreskitto.com/</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a></div>
+    </div>
+    <p>Llega el verano y con él, los helados. El postre por excelencia para estos meses de sol y playa. Con una temperatura media de entre 18° y 20° C, Málaga cuenta con helados durante todo el año, aunque es ahora, durante los meses estivales, cuando el consumo se multiplica así como los establecimientos donde se puede disfrutar de ellos. Sabores para todos los gustos, de todos los colores, y servidos de diversas formas que ponen la nota de frescura a estos días de calor. Y dentro de esta amplia diversidad, cabe destacar los helados artesanales. Elaborados en obradores de las propias heladerías que consiguen un helado de mayor calidad a base de productos frescos sin necesidad de incorporar colorantes ni conservantes. Un postre ligero que va más allá de ser el último plato de nuestro menú veraniego, pues se convierte en el mejor sustituto de la merienda o incluso de la cena tras las copiosas comidas, habituales en los meses de vacaciones. Vainilla, chocolate y fresa siguen siendo los sabores más reclamados por niños y mayores, a pesar de la aparición de nuevos como la mora, el chocolate blanco o la tarta de queso. La tradición continúa marcando la moda. Y de eso sabe mucho José Romero, propietario de la heladería Freskito, situada en pleno centro histórico de la capital, que comienza ya su sexta temporada abierta al público. José trabaja el helado artesanal desde 1999 y se ha formado con los mejores en Italia y Alemania. También ha trabajado como formador de heladeros, hasta que decidió volver a su ciudad y compartir sus conocimientos con todos los malagueños, con una premisa muy clara: elaborar helados de calidad. Premisa que mantiene tras 6 años de andadura, en los que ha ido aumentando sus sabores y productos hasta llegar a los 24 que componen actualmente sus vitrinas. Algunos de ellos: milhojas con una base de leche merengada,con canela y azúcar glas; el helado de Málaga elaborado con vino dulce moscatel; el de tiramisú con una base blanca de helado mezclada con un licor, queso mascarpone y bizcocho mojado en jarabe de café con vcacao; o sus helados de temporada de frutas naturales. Aunque en Freskito no encontramos sólo helados de la mejor calidad, sino también batidos, horchatas y granizadas de limón natural, fresa, yogurt y café. Además, Freskito abre todo el año por lo que va al compás de la temporada, incorporando helado de nata y torrijas en Semana Santa, así como pastelería casera y café durante los meses más fríos del año. Otro aspecto importante de esta heladería es su decoración. Una estética moderna e innovadora, sencilla pero que no se olvida fácilmente, cuyo concepto radica en pedir para llevar y degustar el helado paseando y disfrutando del paisaje malagueño.
+</p>
+    <br>
+    <p>With the arrival of summer comes ice cream.
+
+The dessert of choice for these months of sun and beach. With a yearly average temperature of between 18 ° and 20 ° C, Malaga has ice cream all year round, although it is now during the summer months when consumption is multiplied along with the establishments where you can enjoy it. Tastes and colours for all palettes, and served in various ways that bring refreshment to these hot days. Within the wide range of ice creams available, the best are generally the homemade variates, produced in small kitchens, with the finest ingredients and without the need for preservatives or colourings. A light dessert that goes beyond being the last course of our summer menu, it becomes the best substitute for lunch or even supper after the large meals we consume when on vacation. Vanilla, chocolate and strawberry flavors, are still common favourites for both children and adults alike, despite the emergence of new and exciting flavours such as blackberry, white chocolate or cheesecake. Somebody who knows a lot about ice cream is José Romero, owner of Freskito ice cream kiosk, located in the historic center of the capital, which begins its sixth season open to the public. José has produced ice cream since 1999 and trained with the best in Italy and Germany. He has also worked as a developer for ice cream manufacturers, until he decided to return to his city and share his knowledge with all the people of Malaga, with a very clear premise: developing quality ice cream. For the past six years he has increased his flavors and products to reach the 24 that are currently available at his counter. Some of them, Napoleon with a base of meringue, ice cream made with sweet Malaga Moscatelv wine, the tiramisu with a white base of ice cream, mascarpone cheese and sponge cake soaked in coffee syrup, or fresh fruit of the season ice cream. At Freskito you will not only find the best quality ice cream, but also smoothies, horchata (a traditonal almond drink), natural lemon, strawberry and yogurt slush, and coffee. Freskito is open all year adding flavours for different seasons, as well as homemade cakes and coffee during the colder months of the year. Another important aspect of this ice cream parlor is its decor. A modern and innovative aesthetic, simple but not easily forgotten, whose concept is to allow you to enjoy the quality ice cream whilst walking through Malaga.
+
+
+
+</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+<div data-role="page" id="vinos" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>d'gustar vinos</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/vino.png" class="thumbnail" width="30%">
+      <h2>d'gustar vinos</h2>
+      <p>Calderón de la Barca, 2<span class="details"><a href="http://www.grupodgustar.es/" target="_blank">http://www.grupodgustar.es/</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952222625" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>GRATIS al pedir tu Vino o Cerveza, degustación de Ibéricos y Quesos.</p>
+<br>
+    <p>FREE when you order a Wine or Beer, Iberian Sausage and Cheese tasting.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+<div data-role="page" id="quitapenas" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Bodegas Quitapenas</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/quitapenas.png" class="thumbnail" width="30%">
+      <h2>Bodegas Quitapenas</h2>
+      <p>&nbsp;</p>
+      <p> Pasaje Chinitas 2<span class="details"><a href="http://www.quitapenas.es/s" target="_blank">http://www.quitapenas.es/</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a></div>
+    </div>
+    <p>Cinco generaciones han pasado por la segunda bodega más antigua de la provincia y la primera en la elaboración del vino Málaga, Bodegas Quitapenas.</p>
+    <p>Aunque la relación de la familia Suárez y los viñedos se remonta a 1.870, es en 1.880 donde tiene sus orígenes esta bodega. Concretamente, en el barrio malagueño de El Palo, donde nace como una taberna y casa de comidas bajo el nombre de El Huertecillo. Fue entonces cuando comienza a conocerse como ‘la bodega que nos quita las penas’ creciendo la fama de sus vinos y su buena comida por toda la provincia.</p>
+    <p>Con el paso de los años, Bodega Quitapenas  fue ampliando sus instalaciones. En primer lugar se traslada a la conocida por aquel entonces como calle de Málaga, hasta el año 2.004 que se instala en Carretera de Guadalmar. Actualmente es allí donde se elaboran los populares y deliciosos vinos de Málaga, vinos Moscatel y vinos Sierras de Málaga como dos de las estrellas de la casa: el Oro Viejo y el Quitapenas Dorado. Un proceso delicado y minucioso que pueden conocer todos los interesados ya que se llevan a cabo visitas turísticas, catas guiadas, catering, venta al público e incluso reserva de las instalaciones para celebraciones, con capacidad para 550 personas.</p>
+    <p>A lo largo de su historia, tabernas y bodega han ido siempre unidas, llegando a existir 32 tabernas. A finales de los 70 y principios de los 80, éstas comienzan a decaer hasta que vuelven a resurgir a mediados de los 90 con algunas transformaciones. Ahora se trata de tabernas familiares donde los comensales buscan el tapeo típico de la provincia acompañado por un buen vino Málaga.</p>
+    <p>El pescaito frito y el marisco fresco son los protagonistas de su carta, junto a sus exquisitos caldos para disfrutar en familia, pareja o entre amigos. Un lugar para todos con el auténtico sabor de Málaga, que se ha convertido en un referente de calidad en la provincia.</p>
+    <p> </p>
+    <p>Servicio en español, inglés y francés.</p>
+<br>
+    <p>QUITAPENAS WINE MERCHANTS</p>
+    <p>Five generations have passed through Bodegas Quitapenas, the second oldest wine merchant in the province, and the most important in the production of the Malaga style wine.<br>
+      <br>
+      Although the link between the Suárez family and vineyards goes back to 1870, the origins of the wine merchant date from 1880 in the area of Malaga known as El Palo, with the opening of a tavern also serving meals and called El Huertecillo.  It was then that the wine merchant came to be known as the one which “drowns sorrows”: its wines and good food started to become well known throughout the province.<br>
+      <br>
+      With the passing of time, Bodega Quitapenas expanded its facilities.  Firstly, with a move to the street then known as Calle Málaga, and in 2004 to Carretera de Guadalmar.  It is there that the popular and delicious wines are made: Malaga; Moscatel; Sierras de Malaga, as well as Quitapenas’ two star products: Oro Viejo and Quitapenas Dorado. These delicate and precise manufacturing processes may be witnessed in person through guided tours, wine tastings, caterings for special occasions, direct sale and even via reservations of its events venue, with a capacity for 550 people.<br>
+      <br>
+      Throughout its history, the Quitapenas wine merchant has always been closely linked to taverns: at one time, 32 establishments were in existence.  Between the end of the 1970’s and the start of the 80’s, the number of taverns began to drop, until a resurgence in the mid 90’s following a series of changes.  Now, its taverns are family based, and customers are served the typical “tapeo” (varied small snacks) from the province, together with a quality Malaga style wine.<br>
+      <br>
+      Fried fish and fresh seafood are the main attraction on its menu, along with the exquisite wines, all of which can be enjoyed by families, couples or friends.  It is a place for all with an authentic taste of Malaga, having become synonymous for quality in the area.<br>
+      <br>
+      English, French and Spanish spoken</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+<div data-role="page" id="jardin" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>El Jardin</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/jardin.png" class="thumbnail" width="30%">
+      <h2>El Jardin</h2>
+      <p>Calle Cañón Nº 1<span class="details"><a href="http://www.eljardinmalaga.com">http://www.eljardinmalaga.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952220419" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Uno de los clásicos en Málaga, con veladas musicales:</p>
+    <p>Jueves: Baile de Tango</p>
+    <p>Viernes &amp; Sábados: Espectáculo Flamenco, Piano y Canción Española</p>
+    <p> </p>
+    <p>En 1987 se adquiere el inmueble ubicado en la confluencia de las calles Cañon y Cister junto a los jardines de la catedral, construido cien años antes y realizado por el arquitecto Jerónimo Cuervo, el mismo del Teatro Cervantes.<br>
+      En 1990, después de tres años de reformas, el edificio había recuperado todo su esplendor y se inaugura el Restaurante cafetería El Jardín. Cada semana este establecimiento ofrece a  sus visitantes y turistas actuaciones musicales a las 21 horas: los jueves espectáculos de tango y los viernes y sábados piano y flamenco.<br>
+      El Jardín es un viaje a un elegante café de principios del siglo XX, un espacio con amplios <br>
+      ventanales, con efigies de escritores y poetas de Málaga. El conocido dramaturgo y crítico teatral Enrique Llovet vio la reforma de la casa donde él mismo había vivido y se sintió gratamente sorprendido. El piano ha sido siempre pieza clave en El Jardín, que desde sus comienzos quiso aportar algo distinto a la tradicional oferta de la Málaga de hace 20 años. Son numerosos los turistas que nos visitan y elogian los exquisitos platos, tapas, el esmerado servicio, la decoración y el ambiente del local, <br>
+      disfrutando además de las veladas musicales de <br>
+      flamenco, canción andaluza y tangos que lo convierten en un punto de referencia de las noches malagueñas como fue el inolvidable Café de Chinitas.<br>
+      Los aires clásicos del restaurante, y su situación privilegiada junto a los jardines de la <br>
+      catedral, lo han convertido, a su vez, en un clásico de anuncios televisivos, de series y de reportajes.</p>
+<br>
+    <p>One of the classic restaurants in Malaga, with musical soirées:</p>
+    <p>Thursday: Tango Dance</p>
+    <p>Friday &amp; Saturday: Flamenco; Piano; Spanish song</p>
+    <p> </p>
+    <p> </p>
+    <p> </p>
+    <p>The building situated on the corner of <br>
+      Cañon and Cister streets next to the cathedral gardens, designed a hundred years earlier by the <br>
+      Cervantes Theatre architect, Jeronimo Cuervo, was <br>
+      acquired in 1987.  Three years later it was restored to all its former glory and in 1990, the Restaurant and Cafeteria “El Jardin” opened on the ground floor. <br>
+      In a superb location, El Jardin offers a journey back in time to the elegant cafés of the 1900s. The large windows look on to the cathedral gardens and images of Malaga writers and poets adorn the walls. One of these, the playwright and theatre critic Enrique Llovet was most agreeably <br>
+      surprised by the renovation of the house where he had once lived..<br>
+      When it opened 20 years ago, El Jardin resolved to offer something more than just the traditional Malaga atmosphere. Live music and <br>
+      particularly the piano, became a key element. Now, starting at 9 o’clock in the evening, patrons can watch and listen to tangos on Thursdays, piano and flamenco on Fridays and Saturdays. Many visiting tourists have praised the delicious food and tapas, the excellent service, decoration and atmosphere and enjoyed the flamenco, Andalusian song or tango evenings that have made El Jardin as much a reference of Malaga night-life as the unforgettable Café de Chinitas.<br>
+      Thanks to its classic ambience and <br>
+      privileged situation, the restaurant has become, in its turn, a classic feature in many international TV spots, series and programmes.</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="okami" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Okami</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/gaudi.png" class="thumbnail" width="30%">
+      <h2>Okami</h2>
+      <p>C/ San Juan de Letrán, 13<span class="details"><a href="www.okamirestaurante.es" target="_blank">www.okamirestaurante.es</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952224953" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>“la cocina japonesa que se lleva”
+      <br>
+      <br>
+    “authentic Japanese kitchen”</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+<div data-role="page" id="omammamia1" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>O mamma mia</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/omamma.png" class="thumbnail" width="30%">
+      <h2>O mamma mia</h2>
+      <p>C/ San Juan de Letran 7<span class="details"><a href="http://www.omammamia.com">http://www.omammamia.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952225695" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>O Mamma Mia te ofrece el auténtico sabor de Italia. Todo un referente de la hostelería con más de 35 años de experiencia donde disfrutar de su calidad y variedad a precios asequibles en un espacio íntimo y acogedor inspirado en el Renacimiento italiano. Visita cualquiera de sus dos restaurantes en el centro histórico de Málaga.</p>
+    <br>
+    <p>Passing down recipes through different generations has allowed O Mamma Mia to keep the taste of authentic Italian cuisine. 1972 was the year in which it first opened its doors in Fuengirola. 40 years later, has more than 20 restaurants throughout Andalusia and Madrid, it is now a benchmark of the hospitality trade.<br>
+    Careful selection of raw products, a great way of cooking and classic recipes of Italian cuisine are the secret of Mamma Mia. A cozy and intimate space inspired by the Italian Renaissance.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+<div data-role="page" id="omammamia2" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>O mamma mia</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/omamma.png" class="thumbnail" width="30%">
+      <h2>O mamma mia</h2>
+      <p>Avda de Pries 13<span class="details"><a href="http://www.omammamia.com">http://www.omammamia.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952223781" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>O Mamma Mia te ofrece el auténtico sabor de Italia. Todo un referente de la hostelería con más de 35 años de experiencia donde disfrutar de su calidad y variedad a precios asequibles en un espacio íntimo y acogedor inspirado en el Renacimiento italiano. Visita cualquiera de sus dos restaurantes en el centro histórico de Málaga.</p>
+    <br>
+    <p>Passing down recipes through different generations has allowed O Mamma Mia to keep the taste of authentic Italian cuisine. 1972 was the year in which it first opened its doors in Fuengirola. 40 years later, has more than 20 restaurants throughout Andalusia and Madrid, it is now a benchmark of the hospitality trade.<br>
+    Careful selection of raw products, a great way of cooking and classic recipes of Italian cuisine are the secret of Mamma Mia. A cozy and intimate space inspired by the Italian Renaissance.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="omammamia3" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>O mamma mia</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/omamma.png" class="thumbnail" width="30%">
+      <h2>O mamma mia</h2>
+      <p>Muelle uno Puerto de Málaga<span class="details"><a href="http://www.omammamia.com">http://www.omammamia.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952602156" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>O Mamma Mia te ofrece el auténtico sabor de Italia. Todo un referente de la hostelería con más de 35 años de experiencia donde disfrutar de su calidad y variedad a precios asequibles en un espacio íntimo y acogedor inspirado en el Renacimiento italiano. Visita cualquiera de sus dos restaurantes en el centro histórico de Málaga.</p>
+    <br>
+    <p>Passing down recipes through different generations has allowed O Mamma Mia to keep the taste of authentic Italian cuisine. 1972 was the year in which it first opened its doors in Fuengirola. 40 years later, has more than 20 restaurants throughout Andalusia and Madrid, it is now a benchmark of the hospitality trade.<br>
+    Careful selection of raw products, a great way of cooking and classic recipes of Italian cuisine are the secret of Mamma Mia. A cozy and intimate space inspired by the Italian Renaissance.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+<div data-role="page" id="souvi" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Souvi</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/souvi.png" class="thumbnail" width="30%">
+      <h2>Souvi</h2>
+      <p>Calle Afligidos<span class="details"><a href="http://www.gastronomiamalaga.com/index.php?option=com_content&view=article&catid=34%3Arestaurants&id=88%3Ail-laboratorio&Itemid=76&lang=es" target="_blank">http://www.souvitaperia.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952229052" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Desde la mañana arrancan el dia con desayunos muy divertidos desde los más clasicos al bol de frutas y revueltos más originales.
+
+A partir del mediodia se pueden disfrutar de una amplia gama de tapas de inspiración italiana, de novedosas pizzas y platos típicos de Italia. Su terraza y su barra se presta maravillosamente a agradables tertulias degustando vinos a la copa (mas de 18 referencias) numerosas cervezas de barril y suculentos cócteles.
+</p>
+    <br>
+    <p>Alvaro Souviron learnt the art of cooking in the Mar de Alboran and Palocortado restaurants in Malaga and then in the Michelin 3*** Celler de Can Roca in Gerona before opening SOUVI Tapería Gastronómica in the historical centre of Malaga. </p>
+    <p>The wide menu offers classic dishes with a modern touch, charcoal grilled meat and exciting original creations like truffled potatoes filled with foie and boletus ice-cream, grilled octopus with Pedro Ximenez sherry, sweet potato, sour apple and curry, codfish maw with ham and poached egg or Moroccan chicken croquettes. Alvaro Souvirón and his young manager Daniel Guerrero are passionate about their profession and are eager to share this passion with their guests.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="gastroteca" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Gastroteca de Reding</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/gastrotecalogo.png" class="thumbnail" width="30%">
+      <h2>Gastroteca de Reding</h2>
+      <p>Calle Reding, 11<span class="details"></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952225583" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>The Gastroteca de Reding is located just a few yards from one of Malagaís most popular beaches, the Malagueta and close to the recently opened Muelle Uno leisure centre in the port.</p>
+    <p>Quality and attention to detail are an important part of the philosophy of David Valero, the owner and chef of this small friendly restaurant. Born and trained in Barcelona David has amassed a wealth of cooking experience working in the best restaurants in Madrid, Marbella and the Balearic islands. The Gastroteca de Reding offers signature cuisine with a Mediterranean flavour that is both traditional and innovative, blending flavours, colours and fragrances that arouse senses and sensations. Begin with an aperitif of crunchy pickled anchovy lasagne served with roast vegetables. For your first course, choose between the dayís special ceviche of marinated raw fish or fresh fish tartar. Then pick a main course from the selection of rice, fish or meat dishes and to finish one of our delicious freshly made desserts with a glass of oloroso sherry. We have a menu to suit all tastes and pockets. Gastroteca de Reding can also boast a carefully selected wine list. Both the daily menu and the weekend special are outstanding and there is also a great new summer tapas menu: variety and creativity at affordable prices.</p>
+<p>&nbsp;</p>
+    <p>The Gastroteca de Reding is located just a few yards from one of Malagaís most popular beaches, the Malagueta and close to the recently opened Muelle Uno leisure centre in the port.<br>
+      <br>
+      Quality and attention to detail are an important part of the philosophy of David Valero, the owner and chef of this small friendly restaurant. Born and trained in Barcelona David has amassed a wealth of cooking experience working in the best restaurants in Madrid, Marbella and the Balearic islands.<br>
+      The Gastroteca de Reding offers signature cuisine with a Mediterranean flavour that is both traditional and innovative, blending flavours, colours and fragrances that arouse senses and sensations.<br>
+      Begin with an aperitif of crunchy pickled anchovy lasagne served with roast vegetables. For your first course, choose between the dayís special ceviche of marinated raw fish or fresh fish tartar. Then pick a main course from the selection of rice, fish or meat dishes and to finish one of our delicious freshly made desserts with a glass of oloroso sherry. We have a menu to suit all tastes and pockets.<br>
+      Gastroteca de Reding can also boast a carefully selected wine list.<br>
+      Both the daily menu and the weekend special are outstanding and there is also a great new summer tapas menu: variety and creativity at affordable prices.
+    </p>
+    <p>&nbsp;</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="gallega" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>La Taberna Gallega</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/gallega.png" class="thumbnail" width="30%">
+      <h2>La Taberna Gallega</h2>
+      <p>Correo Viejo 11<span class="details"><a href="http://www.gastronomiamalaga.com/index.php?option=com_content&view=article&catid=34:restaurants&id=87:la-taberna-gallega&Itemid=76&lang=es">http://www.gastronomiamalaga.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952213924" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Cuando se habla de Galicia, quizás lo primero que se pasa por la cabeza del turista es una mesa repleta de mariscos, pescados y empanadas. Aunque se pueda pecar de una imagen estereotipada, no es del todo incierto, ya que es una de las regiones españolas que cuenta con mejor pescado y marisco de todo el país. Y Málaga tiene un pedacito de esta gastronomía en restaurantes como La Taberna Gallega, donde se hace patente esta calidad. Es muy difícil decir cuál es el plato típico de la comunidad, pero si hay que buscar una característica común a todos sería su abundancia y una forma de cocinar artesanal, pausada y variada. Así pues, vamos a intentar hacer un breve recorrido por los productos y platos típicos de esta comunidad. Empezaremos por su carne noble gallega de vacuno. Los más habituales: el solomillo, el entrecot y el chuletón a la brasa reconocido en toda la geografía española por su sabor, su textura y su calidad. Continuamos con el marisco, que abunda en cada rincón de las casas y restaurantes gallegos como pueden ser las navajas, cigalas, centollo, percebes, vieiras, ostras, bogavantes, langostas, gambas y por supuesto, el pulpo, especialidad conocida mayormente por servirse a la gallega. Una base de patata cocida sobre la que se sirve el pulpo previamente cocido, rociado con pimentón picante y unas gotas de aceite de oliva. Podemos seguir hablando de sus empanadas, servidas de multitud de formas, como la más común: rellena de atún y verduras. U otras no tan comunes pero igual de exquisitas: rellenas de pulpo, mejillones, carne, bacalao,… Y con la boca hecha agua, seguimos con sus embutidos. Es de sobra conocido que del cerdo se aprovecha todo, pues en Galicia es un alimento muy recurrido en sus platos, en los que incluyen productos como el chorizo, jamón, lacón, solomillos, servidos solos con un buen pan caliente o como complemento de algunas de sus recetas. Los pimientos de Padrón, municipio de la provincia de La Coruña, también son muy empleados tanto en los platos como en las tapas. Y por supuesto, sus quesos. Con todos estos alimentos y muchos más, los gallegos hacen las delicias de los comensales con recetas como: el cocido gallego elaborado con jamón, ternera, carne de gallina, chorizo, grelos, patatas y garbanzos, ideal para contrarrestar el frío de las tierras norteñas; la caldeirada de pescados o el lacón con grelos. Para terminar, la cocina gallega también destaca por su repostería casera, que endulza nuestras comidas de un modo artesano y muy nutritivo. Y la guinda del pastel, en este caso, la ponen los vinos: Ribera, Albariño, Monterey, Ribeira Sacra, y un largo etcetera que no faltan en la mesa gallega. Seguramente hemos dejado muchos en el tintero, pero si quieren conocer más de esta cocina tan completa no duden en visitar la variada oferta gastronómica de la ciudad y degustar la maravilla de estos platos.</p>
+    <br>
+    <p>Quality produce, preparation, price and good portions define the kitchen from our land, Galicia.</p>
+    <p>Specialists in duck, beef, soups, fish and seafood.</p>
+    <p>When speaking of Galicia, perhaps the first thing that goes through the head of the tourist is a table laden with shellfish, fish and pies. Although this could be stereotyping, it is not far from the truth, since it is one of the Spanish regions with the best fish and seafood. In Málaga you can sample this cuisine in restaurants such as La Taberna Gallega, serving traditional quality dishes. It is very difficult to say which is the typical dish of the Galician community, but to seek a common feature of all their dishes would be the cooking style, slowly cooked with quality ingredients . So, let’s try to make a brief tour of the products and typical dishes of this community. Beginning with his noble Galician beef and veal. The most common: the tenderloin steak, entrecot and grilled t-bone steak is understood throughout the Spanish territory for its taste, texture and quality. We start with food, which abounds in every corner of the houses and Galician restaurants such as razor clams, crayfish, crab, barnacles, scallops, oysters, lobster, shrimp and of course, the octopus, a Galician specialty. A baked potato served with pre-cooked octopus, sprinkled with red pepper and a few drops of olive oil. We can continue talking about their pasties, served in many different ways, the most common: stuffed with tuna and vegetables. Or other less common but equally delicious: stuffed octopus, mussels, beef, cod, ... And we can continue with the mouth watering cured sausage. It is well known that pork plays a large role in the Galician diet, and includes products such as cured sausages, ham, pork, black pudding, served alone with a good warm bread or as a complement of some of their other recipes. Pimientos de Padrón, a municipality in the province of La Coruña, are also enjoyed as both a main dish and as tapas. And not forgetting the cheeses. With all these foods and many others, the Galician recipe book delight diners with dishes such as: Galician stew made with ham, veal, chicken, chorizo, spring greens, potatoes and chickpeas, ideal to counteract the cold of the northern lands, and fish or pork stews with fresh vegetables. Finally, the Galician cuisine is also noted for its homemade pastries and cakes, a delicious ending to a rich meal. And the icing on the cake, in this case, are the wines: Ribera, Albariño, Monterey, Ribeira Sacra, and a long etcetera that are available from the Galician table. Surely we have left much unmentioned, but if you want to know more about this wonderful cuisine, do not hesitate to visit and learn of the varied cuisine of the region and enjoy the wonder of these dishes.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="gueno1" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Lo Güeno</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/gueno.png" class="thumbnail" width="30%">
+      <h2>Lo Güeno</h2>
+      <p>Calle Marin Garcia 9<span class="details"><a href="http://www.logueno.es/">http://www.logueno.es/</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952223048" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>LO GÜENO es un apelativo muy apropiado para los dos restaurantes y el bar del mismo nombre, todos en el corazón de Málaga. Celebrando este año sus cuarenta y cinco años de actividad, Lo Güeno ha consolidado su excelente reputación de calidad, servicio y generosas porciones que lo hizo tan popular en los años sesenta como pionero en el arte de la tapa. Ahora el establecimiento original, adornado con jamones, quesos y barriles de vinos de Málaga, cuenta además con dos restaurantes para su creciente público, tanto local como visitante.<br>
+      La decoración de los locales es de un elegante estilo tradicional con entarimado de mármol en los umbrales y una  llamativa vidriera. Los restaurantes ofrecen una carta también de estilo tradicional. Mariano, el mesonero de antigua usanza, presenta una cocina de categoría, ingredientes de primera calidad, platos clásicos de la mejor cocina española, con pocas concesiones a las modas culinarias contemporáneas. Los pescados y las carnes selectos se preparan de manera sencilla a la perfección y la carta incluye una variedad de platos típicos de Málaga: la fritura de pescado y la sopa  de ajo blanco. <br>
+      Lo Güeno es apto para gente de buen comer. El chuletón de ternera gallega, el cochinillo asado, las cuatro variaciones de bacalao son todos sencillamente extraordinarios. Ahora bien, para disfrutar de la mesa y los excelentes vinos, el comensal debe disponer de tiempo y un apetito en consonancia. Si no tiene ni tiempo ni tanto apetito para tal festín, puede elegir algo de la selección de más de cincuenta tapas representativas de lo mejor de la cocina española, desde la fabada asturiana hasta la ensalada malagueña.<br>
+    Una visita a Lo Güeno será un recuerdo memorable de Málaga.</p>
+    This curious local spelling (pronounce like the Welsh GWEN) of BUENO, meaning good, actually signifies delicious, outstanding, and excellent when applied to the two restaurants and bar going by this name in the heart of Malaga. Opened 45 years ago, Lo Güeno has consolidated the outstanding reputation for quality, service and quantity that made it popular in the sixties with residents. The still bustling original bar, with its barrels of the great wines of Malaga waiting to be sampled, was a pioneer of the art of tapas in Malaga. Now the two restaurants cater for the ever-growing public that includes many foreign visitors. <br>
+    The restaurant decoration is tastefully traditional. Don’t miss the inlaid marble thresholds, the charming stained-glass panel and the floor-to-ceiling wine-racks holding magnificent wines to be tried. And the food is deliciously traditional too. Mariano, the host, has carried on the family practice and serves prime quality ingredients in classic Spanish style with few concessions to contemporary cooking fads. Choice meat and fish are cooked simply and to perfection and the menu includes a variety of local dishes such as the typical Malaga mixed fried fish and the cold almond and garlic soup as well as four different recipes for salt cod, historically indispensable fare for the Spanish since time immemorial.<br>
+    Lo Güeno caters for hearty eaters. The succulent T-bone steak is extraordinarily good, as is the roast sucking pig. This is food for a long, long lunch break but if you have neither time nor inclination for such a feast pick something from the splendid selection of over fifty tapas. Selected from the best of Spanish cooking, these range from the wholesome to the exotic with something for every taste and appetite. Try a small dish of paella, or snails or octopus or the typical Malaga salad of potatoes, orange slices and salt cod. <br>
+    Make a memorable meal in Lo Güeno the finest souvenir of your visit to Malaga.
+    <p>&nbsp;</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="gueno2" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Lo Güeno de Strachan</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/gueno.png" class="thumbnail" width="30%">
+      <h2>Lo Güeno de Strachan</h2>
+      <p>Calle Strachan 12<span class="details"><a href="http://www.logueno.com" target="_blank">http://www.logueno.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952217528" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Disfrute de la mejor variedad de carnes en Lo Güeno, en exclusiva en Málaga: el chuletón de ternera Txogitsu y cochinillo asado segoviano.</p>
+    <p>A new restaurant in the heart of Malaga.</p>
+    <p>Enjoy the best tapas , meat and fish from the bay.    </p>
+    <p>Our specialty, meats and fish cooked over charcoal.</p>
+    <p>&nbsp;</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="kelipe" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Kelipe</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/kelipe.png" class="thumbnail" width="30%">
+      <h2>Kelipe</h2>
+      <p>Calle Alamos 7<span class="details"><a href="http://www.logueno.com" target="_blank">http://www.kelipe.net</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952217528" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>…De “Santiago” a “La Cruz Verde”….de Jerez a Málaga, <br>
+      ..., que decir, de estos casi 10 años, en esta maravillosa ciudad….<br>
+KELIPÉ Centro de Arte Flamenco, vamos a cumplir nuestro X aniversario muy pronto, …10 años de vivencias, de anécdotas, …de amigos, de buenos aficionados, …de un público agradecido, …de risas! De este modo podríamos definir este lugar, este “rincón” tan  Flamenco, tan ..gitano!<br>
+“Su Sabor” le hace distinto, y esa misma distinción…”hace de KELIPE, la diferencia…”<br>
+Como Centro de Arte Flamenco, KELIPÉ, ha tenido el privilegio de formar también, a bailaores/as de todo el mundo, aportando “un sello” e identidad particular. LA pureza, la esencia, ..y, el compás, … son nuestras credenciales. Guitarristas, bailaores, percusionistas, cantaores…. Todos ellos nos “han dejado una huella”, y, desde aquí, nuestro cariño y respeto.<br>
+En este largo, trayecto, KELIPÉ, ha ido creciendo, y, como empresa, ha evolucionado en gran manera…. C./ Peña, Mari Blanca, G. Goya…..lugares emblemáticos, por donde han pasado cientos y cientos de amigos, haciendo de la historia de KELIPÉ, algo inolvidable.<br>
+En un Palacete del siglo XVIII, en c/. Alamos nº 7, (Palacio Crópani), es donde ha hecho KELIPÉ, su parada, …tal como en siglos pasados, recorrían “sus viejos” los caminos con sus “carretas”….. llevan ahora su Arte.<br>
+KELIPÉ Palacio Flamenco, es ahora un “proyecto” ambicioso, donde disponemos de espacios multiusos para todo tipo de eventos en exclusiva. Os invitamos a seguir haciendo de KELIPÉ, un lugar único!<br>
+EL Flamenco y “Su Cara más Flamenca”, es decir “Flamenco de Ley”,es decir KELIPÉ, es decir …”Mi Gabriela”, ”El Canastero”, “Bastián”, “La Yedra”, “El Indio”, ….Sergio, Sandra, Irene…Niño de Bela, …Ana, Ito, “El Marqués”…y a todos los grandes artistas que han pasado por nuestro escenario y nuestras vidas.<br>
+El “ADN”  FLAMENCO<br>
+El “compás”, que heredamos como dato genético en nuestra raza,en unos casos,.. cultura en otros, y el amor al Flamenco,  se manifiesta a través del Cante, del Baile, ….de unas Palmas, y de la Guitarra, que parece tener vida propia cuando se apodera y se funde con ese “compás”.<br>
+-La cejilla al 4 ……no puedo! Llevo afónica las ultimas 3 semanas, …”mete falsetas entre medias, que me asfixio”…<br>
+Todo está listo, mi Juan a mi izquierda, Bastián a mi derecha, ..las primeras risas de complicidad, “age” gitano,  bromas en el último segundo….y, ahí aparece todo en UNIDAD, uno solo,  al servicio del “compás”…matemáticamente perfecto, no permite “errores”, es exigente, ….y el LATIDO DEL CORAZÓN en el “Flamenco”.<br>
+No le llevas tú a él, …él, te lleva a ti…. Las sensaciones,y,  emociones, en todo momento al extremo, pasando de la risa al dolor, de la tristeza a la alegría, ….en tan sólo unos minutos de diferencia, provocando una explosión de sentimientos al mismo artista, como a quien lo recibe….<br>
+Se es flamenco las 24 horas del dia, una cultura, historia, y , raíces……cuando se ha comprendido esto, y se abraza, entonces empieza “la búsqueda”.</p>
+    <p>&nbsp;</p>
+    <p>... from “Santiago” to “La Cruz Verde” .... from Jerez to Malaga<br>
+      ... almost 10 years in this wonderful city ....<br>
+KELIPÉ Flamenco Arts Center will complete its tenth anniversary soon, ... 10 years of experiences, anecdotes, ... of friends, companions, ... of an appreciative audience, ... of laughter! This is how we can describe our studio, so Flamenco, so Gypsy..!<br>
+“Our Style” makes us different, and that same distinction ... “keeps KELIPE different from the rest ...”<br>
+Flamenco Arts Center, KELIPÉ, has had the privilege of traveling the world , performing our art, and we have forged a unique identity. The purity, the essence, .. and the beat, ... are our credentials. Guitarists, dancers, drummers, singers ....  have all “left their mark”, and from this, their love and respect.<br>
+In this long journey, KELIPÉ, has been growing, and, as a company, has evolved greatly, performing from a number of venues in malaga .... C. / Peña, Mari White, G. Goya ....., where we have performed to hundreds of friends and family alike, creating KELIPÉS unique style of Flamenco.<br>
+Cropani Palace, an eighteenth century palace in c /. Alamos No. 7,  it is where KELIPÉ isnow based, ... many have passed thought this emblematic building in the past, and now it is the turn of Kelipe ..... offering a truly historic building in which to experience our very special style of Flamenco.<br>
+KELIPÉ Palacio Flamenco, is a new ambitious project, where we have spaces for all types of exclusive events and workshops. We invite you to visit KELIPÉ , and learn more about us!<br>
+Flamenco and “the Flamenco Spirit” meaning “Flamenco de Ley” is KELIPÉ, is ... …”Mi Gabriela”, ”El Canastero”, “Bastián”, “La Yedra”, “El Indio”, ….Sergio, Sandra, Irene…Niño de Bela, …Ana, Ito, “El Marqués”…and all the great artists who have passed through our stage and our lives.<br>
+ <br>
+The “DNA” FLAMENCO<br>
+The “rythmn” is what we have inherited from our forefathers, our roots .. our culture, and the love of Flamenco, is manifested through song and dance, .... clapping palms, and the guitar, which seems to have a life of their own when it seizes and merges with the rythmn.<br>
+Everything is ready, Juan to my left, and Bastián to my right, .. the first laughter of complicity,  and last minute jokes .... and then we all feel as one, and the show begins, and we are in the hands of the music... mathematically perfect guitar, unforgiving demanding .... and the heartbeat in the” Flamenco “.<br>
+Do you take it, ... or does it take you .... The sensations, and emotions constantly changing, from laughter to sorrow, sadness to joy, .... yet just a few minutes  apart, causing an explosion of feelings to the artist, as it does to the spectators alike ....<br>
+It is Flamenco 24 hours a day, culture, history, and roots ...... when you have understood this, embrace it, and begin “the search”.</p>
+    <p>&nbsp;</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+<div data-role="page" id="alegria" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Meson la Alegria</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/alegria.png" class="thumbnail" width="30%">
+      <h2>Meson la Alegria</h2>
+      <p>C/ Marín García, 10<span class="details"><a href="http://www.laalegrialodejorge.es" target="_blank">http://www.laalegrialodejorge.es</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952609072" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>El Mesón La Alegría lö de Jorge es un establecimiento de gran solera, que lleva funcionando desde 1968 en el centro histórico de Málaga. Sus instalaciones están decoradas al puro estilo andaluz con referencias a su Semana Santa y de multitud de recuerdos o motivos taurinos. En su salón interior o en la terraza podrás disfrutar de la cocina malagueña tradicional que ha sabido unir el pescaíto frito con los ibéricos y los guisos andaluces. Todo aderezado de unos buenos vinos y con un servicio profesional. En su carta destacan pescados y mariscos del litoral malagueño y sus especialidades, la paella, el chuletón a la piedra, la pata de cordero o sus variadas tapas.</p>
+    <p>The restaurant is decorated in an Andalusian style with references to Holy Week and a multitude of bullfighting memorobilia. In the restaurant or on the terrace you can enjoy a range of Malaga cuisine from fried fish dishes to Iberian meats and traditional Andalusian dishes, all served with good wine and professional service. You will find fish and seafood from the bay of Malaga on the menu, and specialties such as paella, steak cooked on stone, leg of lamb and a large selection of tapas.</p>
+    <p>&nbsp;</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="perro" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Casa del Perro</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/perro.png" class="thumbnail" width="30%">
+      <h2>Casa del Perro</h2>
+      <p>Calle Andrez Perez 12<span class="details"><a href="http://www.gastronomiamalaga.com/index.php?option=com_content&view=article&catid=34%3Arestaurants&id=82%3Ala-casa-del-perro&Itemid=76&lang=es" target="_blank">http://www.gastronomiamalaga.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952224548" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Podréis encontrar  las opciones vegetariana, de carne y de pescado en nuestra carta de &quot;mordiscos&quot; y &quot;bocados&quot;. Además, os ofrecemos menús caseros (3 primeros y 3 segundos a elegir, pan y postre) los mediosdías de martes a viernes.</p>
+    <p>You can find vegetarian, meat and fish options in our dinner menu of &quot;bites&quot; and &quot;snacks.&quot;<br>
+    In addition, we offer you homemade menus (a choice of 3 starters, 3 main courses, bread and dessert) Tuesday to Friday lunchtimes.</p>
+<p>&nbsp;</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="antonio" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Meson Antonio</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/antonio.png" class="thumbnail" width="30%">
+      <h2>Meson Antonio</h2>
+      <p>Calle Carreteria 92<span class="details"><a href="http://www.mesonantonio.com">http://www.mesonantonio.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952223397" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Regentado por la familia Viñolo, Mesón Antonio lleva más de 30 años ofreciendo a los malagueños y visitantes una de las mejores opciones gastronómicas de la capital. Cocidos caseros, carnes de primera calidad y los pescados frescos, que caracterizan a la cocina malagueña, son los protagonistas de su carta.</p>
+    <br>
+    <p>Meson Antonio has been run for over 30 years by the Viñolo family, offering locals and visitors alike one of the best dining options in the capital.</p>
+    <p>Home cooked, quality meats and the freshest fish, which characterize Malaga cuisine, are the specialities of the house.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="fabrica" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>La Fabrica de los Sentidos</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/fabrica.png" class="thumbnail" width="30%">
+      <h2>La Fabrica de los Sentidos</h2>
+      <p>Plaza de la Merced, 16<span class="details"><a href="www.lafabricadelossentidos.com">www.lafabricadelossentidos.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34951004141" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>La Fábrica de los Sentidos se encuentra junto a la casa natal de nuestro gran maestro Pablo Picasso en Plaza de la Merced.
+El interior del restaurante esta decorado con la modernidad vanguardista y cuenta con espacios para ofrecer a nuestros clientes desde cenas formales a degustar nuestra cesta de tapas y una selección de coctelería en nuestra soleadísima terraza.
+Ven a descubrir tus sentidos más ocultos.
+<br>
+<br>
+Fábrica de los Sentidos is located next to the house where Pablo Picasso was born.
+The restaurant's interior is modern and offers spaces to enjoy formal dinners, tapas or a cocktail.  Our terrace has sun all day!
+Come  and discover your hidden senses</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+<div data-role="page" id="osteria" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Osteria Angelinos</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/osteria.png" class="thumbnail" width="30%">
+      <h2>Osteria Angelinos</h2>
+      <p>Calle Mariblanca, 10 <span class="details"></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34951772762" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>	Angelino utiliza productos frescos y de estación. La cocina es pequeña y necesita su tiempo para guisar de la manera casera tal como se hacía antiguamente.
+	Angelino no es un lugar de comida rápida, sino que es una de las osterías más antiguas de Roma, por lo que siéntate, espera y disfruta de los sabores que dificilmente probarás en otros sitios.
+	La familia de Angelino te da la bienvenida.<br><br>
+	Angelino prepares all their dishes with fresh and seasonal produce. The food is all freshly prepared following tried and tested recipes, handed down through the generations.
+	Angelino is not a fast food restaurant, it has sprung from one of the oldest eateries in Rome, so sit back and enjoy the flavors that you will not find any where else in Málaga.
+	A warm welcome awaits you at Angelino's.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="gustar" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>d'gustar</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/dgustar.png" class="thumbnail" width="30%">
+      <h2>d'gustar</h2>
+      <p>Plaza de las Flores, 2, malaga 29001<span class="details"><a href="http://www.grupodgustar.es/" target="_blank">http://www.grupodgustar.es/</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952219447" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Famosos por nuestros PINTXOS recien hechos, poniendo el maximo de esmero e</p>
+    <p>imaginación y que ofrecemos de formas</p>
+    <p>gratuita como aperitivo con la bebida.</p>
+<br>
+    <p>Enjoy our famous freshly-made toothpick snacks, known as PINTXOS. These </p>
+    <p>imaginatively tempting and attractive appetizers are served free with your drink.</p>
+<p class="clearboth">&nbsp;</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+<div data-role="page" id="flamenco" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Vino Mio Flamenco</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/flamenco.png" class="thumbnail" width="30%">
+      <h2>Vino Mio Flamenco</h2>
+      <p>Calle Alamos11<span class="details"><a href="http://flamenco/restaurantevinomio.com">flamenco/restaurantevinomio.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952609093" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+<div data-role="page" id="jalisco" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Jalisco</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/jalisco.png" class="thumbnail" width="30%">
+      <h2>Jalisco</h2>
+      <p>Calle Reding 19<span class="details"><a href="http://www.restaurantejalisco.es">http://www.restaurantejalisco.es</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952213337" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Desde la tierra del tequila, el chile y los mariachis, y a tan sólo unos pasos de la playa de la Malagueta, encontramos el restaurante Jalisco.</p>
+    <p>Ambientado al más puro estilo mexicano, con la ayuda de sarapes, sombreros y ponchos típicos del país, en este restaurante podrás degustar y disfrutar de la cocina más picante y una de las más sabrosas del mundo. Tacos, burritos, jalapeños, enchiladas, quesadillas… Su carta propone una amplia variedad de especialidades mexicanas para cruzar el atlántico en cada bocado. Un viaje sensorial a un país tan exótico como acogedor.</p>
+<br>
+    <p>From the land of tequila, chili and mariachis, and only a few steps from the beach of Malagueta, you will find Restaurante Jalisco.</p>
+    <p> </p>
+    <p>Typically Mexican, decorated with blankets, hats and ponchos, in this restaurant you can enjoy the spicy cuisine which is one of the tastiest in the world.</p>
+    <p>Tacos, burritos, jalapeños, enchiladas, quesadillas ...</p>
+    <p>Its menu offers a wide variety of Mexican specialties to cross the Atlantic in every bite. A sensory journey to a country as exotic as it is welcoming.</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+<div data-role="page" id="lorenzo" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Trattoria Lorenzo</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/lorenzo.png" class="thumbnail" width="30%">
+      <h2>Trattoria Lorenzo</h2>
+      <p>Plaza de la Merced 5<span class="details"><a href="http://www.lorenzotrattoria.com">http://www.lorenzotrattoria.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952602017" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p>Ubicada en la recién peatonalizada Plaza de la Merced, lugar de nacimiento de Pablo Picasso y una de las más animadas y concurridas plazas de Málaga, se encuentra  Trattoria Lorenzo.</p>
+    <p>Goza de un ambiente italiano familiar y cálido, gracias en parte a una decoración basada en fotografías y objetos de la Italia de antes. Sus pizzas elaboradas en horno de piedra, sus diferentes pastas caseras, sus ensaladas y demás productos de su carta, no te dejarán indiferente y te harán sentir el sabor de Italia.</p>
+<br>
+    <p>Trattoria Lorenzo is located in the recently pedestrianized Plaza de la Merced, birthplace of Pablo Picasso and one of the liveliest squares in town.</p>
+    <p>The warm and friendly atmosphere is typically Italian, thanks in part to the decoration based on  photos and objects from the Italy of old.  Their stone-oven baked pizzas, varied home-made pastas, salads and general menu items will not leave you indifferent, and will give you a true taste of Italy.</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+<div data-role="page" id="eljamal" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Teteria El Jamal</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/jamal.png" class="thumbnail" width="30%">
+      <h2>Teteria El Jamal</h2>
+      <p>Calle Alamos 6<span class="details"><a href="http://www.gastronomiamalaga.com/index.php?option=com_content&view=article&id=267:el-jamal-teteria-malaga&catid=40:cafes&Itemid=71&lang=en">http://www.gastronomiamalaga.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a></div>
+    </div>
+    <p>An Arabic-inspired teahouse where the ample space is divided into three rooms where music, colours and light create a peaceful and relaxed ambience in which to enjoy a drink from the extensive menu of teas, milkshakes, juices, beers and spirits or a snack such as delicious sweet or savory crêpes, brownies, waffles or homemade cakes</p>
+<br>
+    <p>An Arabic-inspired teahouse where the ample space is divided into three rooms where music, colours and light create a peaceful and relaxed ambience in which to enjoy a drink from the extensive menu of teas, milkshakes, juices, beers and spirits or a snack such as delicious sweet or savory crêpes, brownies, waffles or homemade cakes.</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+<div data-role="page" id="tapadaki" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Tapadaki</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/tapadaki.png" class="thumbnail" width="30%">
+      <h2>Tapadaki</h2>
+      <p>Calle carreteria 69<span class="details"><a href="http://www.gastronomiamalaga.com/index.php?option=com_content&view=article&catid=34%3Arestaurants&id=93%3Atapadaki&Itemid=76&lang=es">http://www.gastronomiamalaga.com</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952217966" data-role="button" data-inline="false">Call</a></div>
+    </div>
+    <p> Una nueva experiencia culinaria surge en Málaga, de nuevo de la mano de la gente del restaurante Asako y de Level bar, esta vez asociados con quién fué su primer jefe de cocina, Jorge Manfredi. Siguiendo su estilo, vuelven a fusionar la cocina tradicional mediterránea con la asiática, sobre todo la cocina japonesa. Si bien en esta ocasión al contrario que en Asako, los entrantes y las tapas son más de nuestra tierra y los termines o platos principales están basados en un plato clásico japonés: el Suki yaki. El suki yaki, es una fondue al estilo japonés, en la que se sirve, al centro, un caldo y en éste, cada comensal cocina los ingredientes a su gusto. Este caldo se acompaña con un bol con huevo crudo por el que se pasan los ingredientes una vez cocinados y cuando están muy calientes, para que el huevo se cuaje. Y otro con arroz para acompañar la comida. Entre las tapas, podemos degustar algunos clásicos mediterráneos como “la ensaladilla de papas aliñá con ventresca casera”, el “marmitaco de atún del estrecho” y los “judiones con almejas”, o algunos híbridos fusionados como la “morcilla de atún con tomate y crujiente de wantan”, los “nem (rollitos vietnamitas) rellenos de gulas salteadas con salsa de huevo”, el “arroz caldosito con pato pequinés” y la “tempura de bacalao con alioli de lichis”.</p>
+<br>
+    <p>Sukiyaki is a Japanese fondue.<br>
+      The chef prepares:<br>
+      A soup or a wok sauce.<br>
+      Raw meat cut into very thin slices (like Serrano Ham).<br>
+      Different vegetables (Shiitake mushrooms, onions, etc..) and tofu, all cut into pieces for the wok.<br>
+      Noodles (al dente).<br>
+      Rice boiled or sometimes fried.<br>
+      Raw eggs (in Spain the egg is pasteurized).<br>
+      <br>
+      The table is prepared with a slow cooker or fondue,  prepared with a  little oil or animal fat (in Spain we use oil), and a tray of meat, tofu, noodles and vegetables.  In separate bowls the eggs and the rice, and a bottle of broth or sauce.<br>
+      Like a fondue, diners cook the meat, vegetables, tofu and noodles<br>
+    in the wok adding soup or sauce as required. Once cooked, the different ingredients are passed through  the raw egg, which curdles slightly on contact, and then mixed with the rice.</p>
+    <p> <br>
+      We currently serve three types of meat for sukiyaki :  beef loin, Iberian pork and duck.</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<div data-role="page" id="vinomio" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Vino Mio</h1>
+  </div>
+  <div data-role="content">
+    <div class="addr"><img src="img/vinomio.png" class="thumbnail" width="30%">
+      <h2>Vino Mio</h2>
+      <p>Plaza Jerónimo Cuervo, 2<span class="details"><a href="http://www.restaurantevinomio.com/">http://www.restaurantevinomio.com/</a></span></p>
+      <div data-role="controlgroup" data-type="horizontal" ><a href="#map" data-role="button" data-inline="false" class="mapIt">Map It</a><a href="tel://+34952609093" data-role="button" data-inline="false">Call</a></div>
+    </div>
+ <p>Música en vivo KITCHEN NON STOP. Tapas - Platos vegetarianos - Ensaladas - Carnes irlandesas - Woks cocina creativa. - Menú del Dia €9,50 “Cocina internacional de fusión con un guiño a la dieta mediterránea y un toque creativo, eso sí, todo casero”. Esto es lo que se cuece en los fogones de Hélène Mostertman. Una empresaria holandesa que vino a España hace diez años para montar su restaurante, Vino Mío. El jefe de cocina Simon Robson es el responsable de su carta, disponible en cuatro idiomas, de la que podemos destacar la variedad y los sabores internacionales. ¿Cómo surge Vino Mío? Yo cursé mis estudios de hostelería y sumiller en Holanda, y cuando cumplí 20 años estuve viajando para aprender idiomas, conocer diferentes gastronomías y un día montar mi propio restaurante en el mejor sitio. He vivido en Inglaterra, Bélgica, Curaçao y Francia, también estuve trabajando en la cocina de un crucero en el Caribe, hasta que animada por un amigo vine a España. Y después de buscar el local ideal, decidimos montar Vino Mío. Hace 3 años compré su parte y es entonces cuando empecé a organizar entre otras cosas música en directo. ¿Qué podemos encontrar en su carta? Se divide en cuatro partes: entradas con platos como el paté Picasso (paté acompañado con salsa de piña y brandy); ensaladas; segundos (como los woks, uno de los platos más demandados por los comensales, o la carne de canguro); y vegetarianos (como la ensalada de cous cous Marroquí Vega), además de las sugerencias que ofrecemos diariamente en las pizarras, así como una amplia carta de vinos. También tenemos menú diario, una carta de 5 woks y una carta de tapas que incluye las ensaladas en tamaño mini. A los clientes les encantan. ¿Y qué nos puedes decir del ambiente? El ambiente es otro punto fuerte del restaurante. Seis noches a la semana organizamos un espectáculo de flamenco muy divertido de 20:30 a 22:00 horas de la noche. La gente se lo pasa muy bien. Además, celebramos catas, y cada mes exponemos obras de diferentes artistas. Buscando esta comodidad del comensal, Vino Mío divide su espacio en cuatro zonas diferenciadas: una dedicada al tapeo, el comedor sobre la tarima, un salón más resguardado para comidas más íntimas, y por supuesto, su cocina, abierta al público, está abierta durante todo el día. Un lugar con sabores del mundo cocinados con cariño y esmero. Para Hélène, “lo importante es que el cliente disfrute y recuerde la buena experiencia”.</p>
+<br>
+    <p>Live music; KITCHEN NON STOP; tapas; vegetarian dishes; salads; Irish beef, Woks. Creative cuisine, Lunch menu €9,50 “International fusion cuisine with a hint of the Mediterranean diet and a creative touch. Yes, and all home-made.” That’s what’s cooking in the kitchens of Hélène Mostertman.</p>
+    <p>A Dutch businesswoman who came to Spain ten years ago to set up the restaurant, Vino Mío. Head chef Simon Robson is responsible for the menu, which is available in four languages, from which we can highlight the variety and diversity of the international flavors. Why Vino Mío? I studied hotel and sommelier in Holland, and when I was 20 I began travelling to learn languages, learn about different cuisines and one day start my own restaurant in the best place possible. I lived in England, Belgium, Curacao and France, also I worked in the kitchen of a Caribbean cruise, until I was encouraged by a friend to come to Spain. We found the perfect spot in Málaga, and we decided to call the restaurant, Vino Mío (My Wine). Three years ago I bought out my partner and that’s when I began to organize events, including live music. What can we find on your menu? It is divided into four parts: starters, such as pate Picasso (pate served with pineapple and a brandy sauce), salads, main courses (such as woks, one of the most requested dishes on the menu, or kangaroo steaks) and vegetarian (such as Vega Moroccan cous cous salad), and daily suggestions on the black boards, as well as an interesting wine list. We also have daily lunch menu, a menu of 5 woks and a tapas menu that includes mini-sized salads. These are all really popular with our clients. What can we say about the ambience? The ambience of the restaurant is very important to us. Six nights a week we organize flamenco shows from 20:30 to 22:00. People really enjoy it. Furthermore, we organise wine tastings, and monthly exhibitions of works of art by different artists. To provide the best possible experience for our diners, Vino Mío divides its space into four distinct areas: one devoted to tapas, dining on the stage, a more sheltered room for more intimate meals, and of course, the kitchen which is open all day, where you can view your meals being prepared. A welcoming place with a world flavors impeccably prepared. For Helen, “what matters is that you enjoy and remember the pleasurable experience.”</p>
+</div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+</div>
+
+
+
+
+<div data-role="page" id="map" data-theme="a">
+  <div data-role="header" data-position="fixed">
+    <h1>Gastronomia Malaga</h1>
+  </div>
+  <div data-role="content">
+  	<p class="errorMsg">Your location could not be determined.</p>
+    <div id="gMap"></div>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>Gastronomia Malaga</h4>
+  </div>
+</div>
+
+<div data-role="page" id="loader" data-theme="a">
+  <div data-role="content">
+    <div id="loading"></div>
+</div>
+</body>
+</html>

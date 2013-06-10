@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+    xmlns:gap = "http://phonegap.com/ns/1.0"
+    id        = "com.gastronomiamalaga"
+	 versionCode="9" 
+    version   = "6">
+
+<name>Gastronomia Malaga</name>
+
+<description>
+Restaurant, tapas and cafe guide to Malaga Spain
+</description>
+
+<author href="https://www.gastronomiamalaga.com" email="info@gastronomiamalaga.com">
+Simon Chapman
+</author>
+<icon src="icon.png" />
+<gap:splash src="splash.png" />
+
+<icon src="icon-72.png" width="72" height="72" />
+
+ <preference name="stay-in-webview" value="false" />
+
+<preference name="exit-on-suspend" value="false" />
+
+
+
+
+</widget>
