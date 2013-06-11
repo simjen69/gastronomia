@@ -3,7 +3,7 @@
     xmlns:gap = "http://phonegap.com/ns/1.0"
     id        = "com.gastronomiamalaga"
 	 versionCode="9" 
-    version   = "6">
+    version   = "7">
 
 <name>Gastronomia Malaga</name>
 
