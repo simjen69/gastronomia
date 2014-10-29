@@ -11,7 +11,7 @@
 Restaurant, tapas and cafe guide to Malaga Spain
 </description>
 
-<author href="https://www.gastronomiamalaga.com" email="info@gastronomiamalaga.com">
+<author href="http://www.gastronomiamalaga.com" email="info@gastronomiamalaga.com">
 Simon Chapman
 </author>
 <icon src="icon.png" />
@@ -21,7 +21,7 @@ Simon Chapman
 
  <preference name="stay-in-webview" value="false" />
 
-<preference name="exit-on-suspend" value="false" />
+<preference name="exit-on-suspend" value="true" />
 
 
 </widget>
