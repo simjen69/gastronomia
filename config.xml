@@ -2,8 +2,8 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
     xmlns:gap = "http://phonegap.com/ns/1.0"
     id        = "com.gastronomiamalaga.mobileapp"
-	 versionCode="77" 
-    version   = "77">
+	 versionCode="88" 
+    version   = "88">
 
 <name>Gastronomia Malaga</name>
 
